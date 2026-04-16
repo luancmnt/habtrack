@@ -1,0 +1,19 @@
+{
+  "name": "habtrack",
+  "version": "1.0.0",
+  "description": "API REST para controle de habitos com Express, JWT e Swagger.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "express",
+    "jwt",
+    "swagger",
+    "habits"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}
