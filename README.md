@@ -1,25 +1,24 @@
 # HabTrack API
 
-API REST em JavaScript com Express.
+A simple REST API built with JavaScript and Express for tracking daily habits.
 
-## Requisitos funcionais atendidos
+## Features
 
-### Autenticacao
+### Authentication
+- User registration (`name`, `email`, `password`)
+- User login with JWT authentication
+- Protected routes using Bearer token
+- Logout using in-memory token blacklist
 
-- Cadastro de usuario com `name`, `email` e `password`.
-- Login com credenciais validas.
-- Mensagem de erro para credenciais invalidas.
-- Logout com invalidacao do token atual em memoria.
+### Habits
+- Get all habits for the authenticated user
+- Create new habits
+- Update existing habits
+- Delete habits
+- Mark and unmark habits as completed for the current day
+- Validation for required fields (like `name`)
 
-### Habitos
-
-- Listagem apenas dos habitos do usuario autenticado.
-- Estado vazio quando nao houver habitos cadastrados.
-- Criacao, edicao e remocao de habitos.
-- Validacao do campo obrigatorio `name`.
-- Marcacao e desmarcacao diaria com persistencia em memoria durante a execucao da API.
-
-## Estrutura do projeto
+## Project structure
 
 ```text
 .
@@ -35,42 +34,42 @@ API REST em JavaScript com Express.
 `-- README.md
 ```
 
-## Como configurar
+## How to configure
 
-### 1. Instalar dependencias
+### 1. Install dependencies:
 
 ```bash
 npm install express swagger-ui-express swagger-jsdoc jsonwebtoken
 ```
 
-### 2. Opcional: configurar variaveis de ambiente
+### 2. OPTIONAL - Create a .env file in the root of the project:
 
 ```bash
-export PORT=3000
-export JWT_SECRET=minha-chave-super-secreta
+PORT=3000
+JWT_SECRET=your-secret-dev
 ```
 
-Se `JWT_SECRET` nao for informado, a API usa o valor padrao `habtrack-secret-dev`.
+If JWT_SECRET is not provided, default value will be used - `habtrack-secret-dev`.
 
-## Como executar
+## How to run
 
 ```bash
 npm start
 ```
 
-Servidor padrao:
+The API will be running at:
 
 - API: `http://localhost:3000`
 - Swagger: `http://localhost:3000/api-docs`
 
-## Endpoints principais
+## Main endpoints
 
-### Publicos
+### Public routes
 
 - `POST /api/auth/register`
 - `POST /api/auth/login`
 
-### Protegidos por Bearer Token
+### Protected routes (require Bearer token)
 
 - `POST /api/auth/logout`
 - `GET /api/habits`
@@ -79,9 +78,9 @@ Servidor padrao:
 - `DELETE /api/habits/:id`
 - `PATCH /api/habits/:id/today`
 
-## Fluxo rapido de uso
+## Quick usage example
 
-### 1. Cadastrar usuario
+### 1. Register a user
 
 ```bash
 curl -X POST http://localhost:3000/api/auth/register \
@@ -89,7 +88,7 @@ curl -X POST http://localhost:3000/api/auth/register \
   -d '{"name":"Luana","email":"luana@email.com","password":"123456"}'
 ```
 
-### 2. Fazer login
+### 2. Login
 
 ```bash
 curl -X POST http://localhost:3000/api/auth/login \
@@ -97,34 +96,34 @@ curl -X POST http://localhost:3000/api/auth/login \
   -d '{"email":"luana@email.com","password":"123456"}'
 ```
 
-### 3. Criar um habito com token
+### 3. Create a habit
 
 ```bash
 curl -X POST http://localhost:3000/api/habits \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer SEU_TOKEN" \
-  -d '{"name":"Beber agua","description":"Tomar 2 litros"}'
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -d '{"name":"Drink water","description":"2 liters per day"}'
 ```
 
-### 4. Marcar um habito como concluido no dia
+### 4. Mark habit as done today
 
 ```bash
 curl -X PATCH http://localhost:3000/api/habits/1/today \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer SEU_TOKEN" \
+  -H "Authorization: Bearer YOUR_TOKEN" \
   -d '{"completed":true}'
 ```
 
-### 5. Desmarcar um habito por engano no mesmo dia
+### 5. Unmark habit
 
 ```bash
 curl -X PATCH http://localhost:3000/api/habits/1/today \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer SEU_TOKEN" \
+  -H "Authorization: Bearer YOUR_TOKEN" \
   -d '{"completed":false}'
 ```
 
-## Observacoes
+## Notes
 
-- Os dados ficam somente em memoria. Ao reiniciar a API, usuarios, habitos e tokens invalidados sao perdidos.
-- O projeto foi preparado para futura cobertura com Supertest por meio da exportacao do `app` sem `listen()`.
+- All data is stored in memory only.
+- Restarting the server will reset users, habits, and tokens.
