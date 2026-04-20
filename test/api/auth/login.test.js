@@ -2,9 +2,13 @@ const request = require("supertest")
 const { expect } = require("chai")
 require('dotenv').config()
 const postLogin = require('../../infra/fixtures/postLogin.json')
+const { registerUser } = require('../../infra/helpers/register');
 
 describe ("POST /api/auth/login", () => {
     const bodyLogin = { ...postLogin }
+    before(async () => {
+        await registerUser();
+    });
 
     it ("Should return 200 when logging in with an existent user", async () => {
         const response = await request(process.env.BASE_URL)
