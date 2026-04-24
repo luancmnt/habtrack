@@ -16,13 +16,13 @@ describe("POST /api/auth/register", () => {
     })
 
      it("Should return 400 when creating a user with a invalid email", async () => {
-        bodyRegister.email = "luanateste" // corrigir bug, está aceitando esse valor
+        bodyRegister.email = "luanateste"
 
         const response = await request(process.env.BASE_URL)
         .post('/api/auth/register')
         .set('Content-Type', 'application/json')
         .send(bodyRegister)
 
-        expect(response.status).to.equal(201);
+        expect(response.status).to.equal(400);
     })
 })
