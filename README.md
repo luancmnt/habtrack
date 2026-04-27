@@ -62,6 +62,10 @@ The API will be running at:
 - API: `http://localhost:3000`
 - Swagger: `http://localhost:3000/api-docs`
 
+## Test Documentation
+
+The automated test documentation is available in [test/README.md](./test/README.md).
+
 ## Main endpoints
 
 ### Public routes
