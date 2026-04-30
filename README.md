@@ -2,6 +2,8 @@
 
 A simple REST API built with JavaScript and Express for tracking daily habits.
 
+📚 Full project documentation, including QA strategy, test cases, bug reporting standards and API behavior details, is available in the [Wiki](https://github.com/luancmnt/habtrack/wiki).
+
 ## Features
 
 ### Authentication
